@@ -4,8 +4,9 @@ extends layout
 block content
   h1= title
   p Welcome to #{title}
-  p X was found to be #{P}
-  canvas(id="myChart", width="400", height="400")
+  div(class="chart-container1", style="position: relative; height: 40vh; width: 80vw")
+    canvas(id="myChart")
+      p Failed to Render Graph
   <script src="/scripts/Chart.js"></script>
   script.
     var ctx = document.getElementById('myChart').getContext('2d');
@@ -36,6 +37,8 @@ block content
             }]
         },
         options: {
+          responsive: true,
+          maintainAspectRatio: false,
             scales: {
                 yAxes: [{
                     ticks: {
