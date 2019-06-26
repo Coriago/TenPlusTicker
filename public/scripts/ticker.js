@@ -19,6 +19,7 @@ const formatPosts = (responseJSON) => {
         data.push(score);
     });
     console.log("Here");
+    console.log(posts);
     console.log(labels);
     createChart(labels, data);
 }
