@@ -3,7 +3,7 @@ const numberOfPosts = 10;
 
 
 const fetchPosts = async () => {
-    const posts = await fetch(`https://www.reddit.com/r/${subreddit}.json`);
+    const posts = await fetch(`https://www.reddit.com/r/${subreddit}/hot.json`);
     const responseJSON = await posts.json();
     formatPosts(responseJSON);
 }
@@ -19,7 +19,7 @@ const formatPosts = (responseJSON) => {
         data.push(score);
     });
     console.log("Here");
-    console.log(posts);
+    console.log(responseJSON);
     console.log(labels);
     createChart(labels, data);
 }
