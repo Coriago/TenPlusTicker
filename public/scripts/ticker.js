@@ -4,24 +4,22 @@ const numberOfPosts = 10;
 
 const fetchPosts = async () => {
     const posts = await fetch(`https://www.reddit.com/r/${subreddit}/hot.json`);
-    console.log(posts);
     const responseJSON = await posts.json();
     console.log(responseJSON);
     formatPosts(responseJSON);
 }
 
 const formatPosts = (responseJSON) => {
-    posts = [];
+    posts = responseJSON.data.children;
     labels = [];
     data = [];
     
-    posts.join(...responseJSON.data.children);
     posts.forEach(({data: {title, score}}) => {
         labels.push(title);
         data.push(score);
     });
     console.log("Here");
-    console.log(responseJSON);
+    console.log(posts);
     console.log(labels);
     createChart(labels, data);
 }
