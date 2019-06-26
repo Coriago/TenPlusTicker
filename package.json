@@ -1,0 +1,22 @@
+{
+  "name": "tenplusticker",
+  "version": "1.0.0",
+  "description": "Ticker to display tenplus monthly progress",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Coriago/TenPlusTicker.git"
+  },
+  "author": "Gage Miller",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Coriago/TenPlusTicker/issues"
+  },
+  "homepage": "https://github.com/Coriago/TenPlusTicker#readme",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}
