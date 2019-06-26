@@ -9,14 +9,17 @@ const fetchPosts = async () => {
 }
 
 const formatPosts = (responseJSON) => {
-    const posts = [];
-    const labels = [];
-    const data = [];
+    posts = [];
+    labels = [];
+    data = [];
+    
     posts.join(...responseJSON.data.children);
     posts.forEach(({data: {title, score}}) => {
         labels.push(title);
         data.push(score);
     });
+    console.log("Here");
+    console.log(labels);
     createChart(labels, data);
 }
 
