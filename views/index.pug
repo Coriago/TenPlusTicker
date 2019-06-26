@@ -1,14 +1,15 @@
 extends layout
 
+
 block content
   h1= title
   p Welcome to #{title}
   p X was found to be #{P}
   canvas(id="myChart", width="400", height="400")
+  include Chart
   script.
     var ctx = document.getElementById('myChart').getContext('2d');
-    var Chart = require('chart.js');
-    var myChart = new Chart(ctx, {
+    var myChart = new #{Chart}(ctx, {
         type: 'bar',
         data: {
             labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
