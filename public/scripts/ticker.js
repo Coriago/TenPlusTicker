@@ -3,9 +3,10 @@ const numberOfPosts = 10;
 
 
 const fetchPosts = async () => {
-    const posts = await get(`https://www.reddit.com/r/${subreddit}/hot.json`);
+    const posts = await fetch(`https://www.reddit.com/r/${subreddit}/hot.json`);
     console.log(posts);
     const responseJSON = await posts.json();
+    console.log(responseJSON);
     formatPosts(responseJSON);
 }
 
