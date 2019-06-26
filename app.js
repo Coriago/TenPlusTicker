@@ -21,7 +21,6 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
-app.use('/scripts', express.static(__dirname + '/scripts/'));
 app.use('/node/chart/', express.static(__dirname + '/node_modules/chart.js/dist/'));
 
 // catch 404 and forward to error handler
