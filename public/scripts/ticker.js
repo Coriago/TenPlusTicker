@@ -60,7 +60,7 @@ const createChart = (labs, dat) => {
         }
     });
     
-    poll(() => new Promise(refresh(myChart)), 1000);
+    poll(() => new Promise(refreshChart(myChart)), 1000);
 };
 
 
