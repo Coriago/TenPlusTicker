@@ -1,14 +1,15 @@
 const subreddit = "livestreamfail";
 const numberOfPosts = 10;
-var chartCreated = false;
 
+
+const startPosts = () => {
+    createFormatPosts(fetchPosts());
+}
 
 const fetchPosts = async () => {
     const posts = await fetch(`https://www.reddit.com/r/${subreddit}/hot.json`);
     const responseJSON = await posts.json();
-    console.log(responseJSON);
-    if(chartCreated) return responseJSON;
-    createFormatPosts(responseJSON);
+    return responseJSON
 }
 
 //Only formats for the first creation
@@ -20,6 +21,18 @@ const createFormatPosts = (responseJSON) => {
     var tableData = formatPosts(responseJSON);
     
     createChart(tableData.labs, tableData.dats);
+}
+
+const formatPosts = (responseJSON) => {
+    posts = responseJSON.data.children;
+    labels = [];
+    data = [];
+    
+    posts.forEach(({data: {title, score}}) => {
+        labels.push(title);
+        data.push(score);
+    });
+    return {labs: labels, dats: data};
 }
 
 const createChart = (labs, dat) => {
@@ -46,26 +59,17 @@ const createChart = (labs, dat) => {
             }
         }
     });
-    chartCreated = true;
+    
     poll(() => new Promise(refresh(myChart)), 1000);
 };
 
-const formatPosts = (responseJSON) => {
-    posts = responseJSON.data.children;
-    labels = [];
-    data = [];
-    
-    posts.forEach(({data: {title, score}}) => {
-        labels.push(title);
-        data.push(score);
-    });
-    return {labs: labels, dats: data};
-}
 
-const refresh = (chart) => {
-    console.log("REFRESHED DATA");
-    var tableDataJSON = fetchPosts();
-    var tableData = formatPosts(tableDataJSON);
+
+
+
+const refreshChart = (chart) => {
+    console.log("--REFRESHING DATA--");
+    var tableData = formatPosts(fetchPosts());
     addData(chart, tableData.labs, tableData.dats);
 }
 
@@ -82,4 +86,4 @@ var sleep = time => new Promise(resolve => setTimeout(resolve, time))
 var poll = (promiseFn, time) => promiseFn().then(
              sleep(time).then(() => poll(promiseFn, time)))
 
-fetchPosts();
+startPosts();
