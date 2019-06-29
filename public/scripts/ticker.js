@@ -20,9 +20,7 @@ const formatPosts = (responseJSON) => {
         data.push(score);
     });
     //Debugging
-    console.log("Here");
-    console.log(posts);
-    console.log(labels);
+    console.log("Format data");
     //Debugging
     if(chartCreated){
         return {lab: labels, dat: data};
@@ -59,7 +57,8 @@ const createChart = (labs, dat) => {
     poll(() => new Promise(refresh(myChart)), 1000);
 };
 
-function refresh(chart){
+const refresh = (chart) => {
+    console.log("REFRESHED DATA");
     var tableData = fetchPosts();
     addData(chart, tableData.lab, tableData.dat)
 }
