@@ -70,7 +70,7 @@ const refreshChart = async (chart) => {
     const responseJSON = await posts.json();
     var tableData = formatPosts(responseJSON);
     updateData(chart, tableData.labs, tableData.dats);
-    addData(chart, tableData.labs, tableData.dats);
+    //addData(chart, tableData.labs, tableData.dats);
 }
 
 function updateData(chart, labels, data){
