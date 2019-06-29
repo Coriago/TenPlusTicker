@@ -69,6 +69,7 @@ const refreshChart = async (chart) => {
     const posts = await fetch(`https://www.reddit.com/r/${subreddit}/top.json`);
     const responseJSON = await posts.json();
     var tableData = formatPosts(responseJSON);
+    removeData(chart);
     addData(chart, tableData.labs, tableData.dats);
 }
 
@@ -76,6 +77,14 @@ function addData(chart, label, data) {
     chart.data.labels.push(label);
     chart.data.datasets.forEach((dataset) => {
         dataset.data.push(data);
+    });
+    chart.update();
+}
+
+function removeData(chart) {
+    chart.data.labels.pop();
+    chart.data.datasets.forEach((dataset) => {
+        dataset.data.pop();
     });
     chart.update();
 }
