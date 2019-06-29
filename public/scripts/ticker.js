@@ -3,7 +3,9 @@ const numberOfPosts = 10;
 
 
 const startPosts = () => {
-    createFormatPosts(fetchPosts());
+    const posts = await fetch(`https://www.reddit.com/r/${subreddit}/hot.json`);
+    const responseJSON = await posts.json();
+    createFormatPosts(responseJSON);
 }
 
 const fetchPosts = async () => {
@@ -14,12 +16,10 @@ const fetchPosts = async () => {
 
 //Only formats for the first creation
 const createFormatPosts = (responseJSON) => {
-    
     //Debugging
     console.log("Format data for chart creation");
     //Debugging
     var tableData = formatPosts(responseJSON);
-    
     createChart(tableData.labs, tableData.dats);
 }
 
@@ -64,12 +64,11 @@ const createChart = (labs, dat) => {
 };
 
 
-
-
-
 const refreshChart = (chart) => {
     console.log("--REFRESHING DATA--");
-    var tableData = formatPosts(fetchPosts());
+    const posts = await fetch(`https://www.reddit.com/r/${subreddit}/hot.json`);
+    const responseJSON = await posts.json();
+    var tableData = formatPosts(responseJSON);
     addData(chart, tableData.labs, tableData.dats);
 }
 
