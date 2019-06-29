@@ -69,7 +69,7 @@ const refreshChart = async (chart) => {
     const posts = await fetch(`https://www.reddit.com/r/${subreddit}/top.json`);
     const responseJSON = await posts.json();
     var tableData = formatPosts(responseJSON);
-    updateData();
+    updateData(chart, tableData.labs, tableData.dats);
     addData(chart, tableData.labs, tableData.dats);
 }
 
