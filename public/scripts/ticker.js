@@ -1,12 +1,13 @@
 const subreddit = "livestreamfail";
 const numberOfPosts = 10;
+var chartCreated = false;
 
 
 const fetchPosts = async () => {
     const posts = await fetch(`https://www.reddit.com/r/${subreddit}/hot.json`);
     const responseJSON = await posts.json();
     console.log(responseJSON);
-    formatPosts(responseJSON);
+    return formatPosts(responseJSON);
 }
 
 const formatPosts = (responseJSON) => {
@@ -18,10 +19,16 @@ const formatPosts = (responseJSON) => {
         labels.push(title);
         data.push(score);
     });
+    //Debugging
     console.log("Here");
     console.log(posts);
     console.log(labels);
-    createChart(labels, data);
+    //Debugging
+    if(chartCreated){
+        return {lab: labels, dat: data};
+    }else{
+        createChart(labels, data);
+    };
 }
 
 const createChart = (labs, dat) => {
@@ -48,6 +55,26 @@ const createChart = (labs, dat) => {
             }
         }
     });
+    chartCreated = true;
+    poll(() => new Promise(refresh(myChart)), 1000);
 };
+
+function refresh(chart){
+    var tableData = fetchPosts();
+    addData(chart, tableData.lab, tableData.dat)
+}
+
+function addData(chart, label, data) {
+    chart.data.labels.push(label);
+    chart.data.datasets.forEach((dataset) => {
+        dataset.data.push(data);
+    });
+    chart.update();
+}
+
+var sleep = time => new Promise(resolve => setTimeout(resolve, time))
+
+var poll = (promiseFn, time) => promiseFn().then(
+             sleep(time).then(() => poll(promiseFn, time)))
 
 fetchPosts();
