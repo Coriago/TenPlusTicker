@@ -2,7 +2,7 @@ const subreddit = "livestreamfail";
 const numberOfPosts = 10;
 
 
-const startPosts = () => {
+const startPosts = async () => {
     const posts = await fetch(`https://www.reddit.com/r/${subreddit}/hot.json`);
     const responseJSON = await posts.json();
     createFormatPosts(responseJSON);
@@ -64,7 +64,7 @@ const createChart = (labs, dat) => {
 };
 
 
-const refreshChart = (chart) => {
+const refreshChart = async (chart) => {
     console.log("--REFRESHING DATA--");
     const posts = await fetch(`https://www.reddit.com/r/${subreddit}/hot.json`);
     const responseJSON = await posts.json();
