@@ -7,26 +7,19 @@ const fetchPosts = async () => {
     const posts = await fetch(`https://www.reddit.com/r/${subreddit}/hot.json`);
     const responseJSON = await posts.json();
     console.log(responseJSON);
-    return formatPosts(responseJSON);
+    if(chartCreated) return responseJSON;
+    createFormatPosts(responseJSON);
 }
 
-const formatPosts = (responseJSON) => {
-    posts = responseJSON.data.children;
-    labels = [];
-    data = [];
+//Only formats for the first creation
+const createFormatPosts = (responseJSON) => {
     
-    posts.forEach(({data: {title, score}}) => {
-        labels.push(title);
-        data.push(score);
-    });
     //Debugging
-    console.log("Format data");
+    console.log("Format data for chart creation");
     //Debugging
-    if(chartCreated){
-        return {lab: labels, dat: data};
-    }else{
-        createChart(labels, data);
-    };
+    var tableData = formatPosts(responseJSON);
+    
+    createChart(tableData.labs, tableData.dats);
 }
 
 const createChart = (labs, dat) => {
@@ -57,10 +50,23 @@ const createChart = (labs, dat) => {
     poll(() => new Promise(refresh(myChart)), 1000);
 };
 
+const formatPosts = (responseJSON) => {
+    posts = responseJSON.data.children;
+    labels = [];
+    data = [];
+    
+    posts.forEach(({data: {title, score}}) => {
+        labels.push(title);
+        data.push(score);
+    });
+    return {labs: labels, dats: data};
+}
+
 const refresh = (chart) => {
     console.log("REFRESHED DATA");
-    var tableData = fetchPosts();
-    addData(chart, tableData.lab, tableData.dat)
+    var tableDataJSON = fetchPosts();
+    var tableData = formatPosts(tableDataJSON);
+    addData(chart, tableData.labs, tableData.dats);
 }
 
 function addData(chart, label, data) {
