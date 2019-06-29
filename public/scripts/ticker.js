@@ -3,13 +3,13 @@ const numberOfPosts = 10;
 
 
 const startPosts = async () => {
-    const posts = await fetch(`https://www.reddit.com/r/${subreddit}/hot.json`);
+    const posts = await fetch(`https://www.reddit.com/r/${subreddit}/top.json`);
     const responseJSON = await posts.json();
     createFormatPosts(responseJSON);
 }
 
 const fetchPosts = async () => {
-    const posts = await fetch(`https://www.reddit.com/r/${subreddit}/hot.json`);
+    const posts = await fetch(`https://www.reddit.com/r/${subreddit}/top.json`);
     const responseJSON = await posts.json();
     return responseJSON
 }
@@ -66,7 +66,7 @@ const createChart = (labs, dat) => {
 
 const refreshChart = async (chart) => {
     console.log("--REFRESHING DATA--");
-    const posts = await fetch(`https://www.reddit.com/r/${subreddit}/hot.json`);
+    const posts = await fetch(`https://www.reddit.com/r/${subreddit}/top.json`);
     const responseJSON = await posts.json();
     var tableData = formatPosts(responseJSON);
     addData(chart, tableData.labs, tableData.dats);
