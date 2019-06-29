@@ -60,7 +60,7 @@ const createChart = (labs, dat) => {
         }
     });
     
-    poll(() => new Promise(refreshChart(myChart)), 1000);
+    poll(() => { new Promise(refreshChart(myChart))} , 1000);
 };
 
 
@@ -80,9 +80,9 @@ function addData(chart, label, data) {
     chart.update();
 }
 
-var sleep = time => new Promise(resolve => setTimeout(resolve, time))
+var sleep = time => new Promise(resolve => setTimeout(resolve, time));
 
 var poll = (promiseFn, time) => promiseFn().then(
-             sleep(time).then(() => poll(promiseFn, time)))
+             sleep(time).then(() => poll(promiseFn, time)));
 
 startPosts();
