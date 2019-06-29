@@ -76,6 +76,9 @@ const refreshChart = async (chart) => {
 function updateData(chart, labels, data){
     console.log(chart.data.labels);
     console.log(chart.data.datasets);
+    chart.data.datasets.forEach((dataset) => {
+        console.log(dataset.data)
+    });
 }
 
 function addData(chart, label, data) {
